@@ -19,8 +19,11 @@ public class CorsConfig {
 
                 registry.addMapping("/**")
                         .allowedOrigins(
-                                "http://localhost:5173")
-                        .allowedMethods("*");
+                                "http://localhost:5173",
+                                "https://taskflow-frontend-alpha-silk.vercel.app"
+                        )
+                        .allowedMethods("*")
+                        .allowedHeaders("*");
             }
         };
     }
