@@ -18,10 +18,7 @@ public class CorsConfig {
                     CorsRegistry registry) {
 
                 registry.addMapping("/**")
-                        .allowedOrigins(
-                                "http://localhost:5173",
-                                "https://taskflow-frontend-alpha-silk.vercel.app"
-                        )
+                        .allowedOriginPatterns("*")
                         .allowedMethods("*")
                         .allowedHeaders("*");
             }
