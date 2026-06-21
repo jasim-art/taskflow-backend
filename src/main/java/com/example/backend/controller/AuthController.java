@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -78,5 +79,33 @@ public class AuthController {
                 .orElseThrow(
                         () -> new RuntimeException(
                                 "User not found"));
+    }
+
+    @PutMapping("/profile/{email}")
+    public User updateProfile(
+            @PathVariable String email,
+            @RequestBody User updatedUser) {
+
+        User user =
+                userRepository
+                        .findByEmail(email)
+                        .orElseThrow(
+                                () -> new RuntimeException(
+                                        "User not found"));
+
+        user.setName(
+                updatedUser.getName());
+
+        user.setEmail(
+                updatedUser.getEmail());
+
+        if (updatedUser.getPassword() != null
+                && !updatedUser.getPassword().isBlank()) {
+
+            user.setPassword(
+                    updatedUser.getPassword());
+        }
+
+        return userRepository.save(user);
     }
 }
